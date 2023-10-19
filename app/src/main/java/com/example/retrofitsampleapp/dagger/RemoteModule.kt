@@ -1,5 +1,6 @@
 package com.example.retrofitsampleapp.dagger
 
+import com.example.retrofitsampleapp.repository.remote.AuthenticationInterceptor
 import com.example.retrofitsampleapp.repository.remote.BackendAPI
 import com.example.retrofitsampleapp.repository.remote.BackendApiClient
 import dagger.Module
@@ -18,7 +19,7 @@ import javax.inject.Singleton
 @Module
 object RemoteModule {
 
-    private const val BASE_URL = "https://hub-woapi-dev.azurewebsites.net"
+    private const val BASE_URL = "https://api.github.com"
 
     @Singleton
     @Provides
@@ -34,12 +35,13 @@ object RemoteModule {
 
     @Singleton
     @Provides
-    fun provideOkhttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkhttpClient(httpLoggingInterceptor: HttpLoggingInterceptor,authenticationInterceptor: AuthenticationInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(authenticationInterceptor)
             .build()
     }
 
@@ -58,6 +60,12 @@ object RemoteModule {
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAuthenticationInterceptor(): AuthenticationInterceptor {
+        return AuthenticationInterceptor()
     }
 
 }

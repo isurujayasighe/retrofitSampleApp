@@ -45,7 +45,7 @@ archCompomentVersion = "2.1.0"
 
 startupVersion       = "1.1.1"
 
-
+camarax_version = "1.2.2"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -96,7 +96,15 @@ retrofit-adaptor = {module = "com.squareup.retrofit2:adapter-rxjava2", version.r
 
 coroutines-android = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-android",version.ref = "coroutinesVersion"}
 
+camarax_version_core = {module="androidx.camera:camera-core",version.ref="camarax_version"}
+camarax_version_camara2 = {module = "androidx.camera:camera-camera2",version.ref = "camarax_version"}
+camarax_version_lifecycle = {module = "androidx.camera:camera-lifecycle",version.ref = "camarax_version"}
+camarax_version_video = {module = "androidx.camera:camera-video",version.ref = "camarax_version"}
+camarax_version_view = {module = "androidx.camera:camera-view",version.ref = "camarax_version"}
+camarax_version_extensions = {module = "androidx.camera:camera-extensions",version.ref = "camarax_version"}
+
 [bundles]
 android-lyfcycle = ["androidx-lifecycle-runtime-compose"]
 compose-ui = ["androidx-activity-compose", "androidx-compose-material", "androidx-compose-ui-tooling-preview", "androidx-compose-ui-graphics"]
 retrofit = ["retrofit-retrofit2","retrofit-sandwich","retrofit-interceptor","retrofit-gson-convertor","retrofit-adaptor"]
+camarax = ["camarax_version_core","camarax_version_camara2","camarax_version_extensions","camarax_version_lifecycle","camarax_version_video","camarax_version_view"]
